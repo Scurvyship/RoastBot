@@ -1,7 +1,5 @@
-# Serenity
-This is cheat software I have written a long time ago for Overwatch and used for quite a long time. It has been optimized for use with my sensitivity settings, I'll include those. Currently I do not give any support but I might push some updates when I return to Overwatch again. The cheat has been written in C# and the search algorithm is pretty fast. It's not the prettiest code and it was written over a weekend time.
-
-The software compiles as Dropbox.exe. I used a custom-made obfuscator and packer to create unique copies for me and my friends to lower the chance of getting banned. So far nobody got banned using this, then again we don't really play Overwatch anymore. Got us to Top 500 2 seasons long though.
+# RoastBot
+After the original creator of Serenity stopped supporting his work and I began adding new features, I've made a separate project to work on without having to wait for pull requests.
 
 ## Features
  * Aimbot
