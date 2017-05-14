@@ -535,9 +535,9 @@ namespace RoastBot
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 326);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 323);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(331, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(322, 22);
             this.statusStrip1.TabIndex = 12;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -551,7 +551,7 @@ namespace RoastBot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 348);
+            this.ClientSize = new System.Drawing.Size(322, 345);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tbMain);
             this.Controls.Add(this.btnLoadSettings);
@@ -561,7 +561,7 @@ namespace RoastBot
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.Text = "RoastBot";
+            this.Text = "Dropbox";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nudAimKey)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAnaKey)).EndInit();
