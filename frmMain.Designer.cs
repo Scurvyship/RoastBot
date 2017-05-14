@@ -30,6 +30,7 @@ namespace RoastBot
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.cbAimMode = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nudAimKey = new System.Windows.Forms.NumericUpDown();
@@ -43,6 +44,7 @@ namespace RoastBot
             this.label6 = new System.Windows.Forms.Label();
             this.tbMain = new System.Windows.Forms.TabControl();
             this.tgGeneral = new System.Windows.Forms.TabPage();
+            this.gbDrawing = new System.Windows.Forms.GroupBox();
             this.cbMonitor = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cbWidowEnable = new System.Windows.Forms.CheckBox();
@@ -50,17 +52,16 @@ namespace RoastBot
             this.cbAnaEnable = new System.Windows.Forms.CheckBox();
             this.cbAimEnable = new System.Windows.Forms.CheckBox();
             this.tpAim = new System.Windows.Forms.TabPage();
-            this.tpAna = new System.Windows.Forms.TabPage();
-            this.tpTrigger = new System.Windows.Forms.TabPage();
-            this.gbDrawing = new System.Windows.Forms.GroupBox();
-            this.tpWidow = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tpAna = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tpTrigger = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbTriggerMode = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.nudTriggerKey = new System.Windows.Forms.NumericUpDown();
+            this.tpWidow = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbWidowMode = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -75,8 +76,8 @@ namespace RoastBot
             this.tpAim.SuspendLayout();
             this.tpAna.SuspendLayout();
             this.tpTrigger.SuspendLayout();
-            this.tpWidow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTriggerKey)).BeginInit();
+            this.tpWidow.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidowKey)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -250,6 +251,16 @@ namespace RoastBot
             this.tgGeneral.Text = "General";
             this.tgGeneral.UseVisualStyleBackColor = true;
             // 
+            // gbDrawing
+            // 
+            this.gbDrawing.Enabled = false;
+            this.gbDrawing.Location = new System.Drawing.Point(6, 56);
+            this.gbDrawing.Name = "gbDrawing";
+            this.gbDrawing.Size = new System.Drawing.Size(278, 164);
+            this.gbDrawing.TabIndex = 14;
+            this.gbDrawing.TabStop = false;
+            this.gbDrawing.Text = "Drawing coming soon!";
+            // 
             // cbMonitor
             // 
             this.cbMonitor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -328,6 +339,16 @@ namespace RoastBot
             this.tpAim.Text = "Aimbot";
             this.tpAim.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Enabled = false;
+            this.groupBox3.Location = new System.Drawing.Point(6, 60);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(278, 160);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "FOV coming soon";
+            // 
             // tpAna
             // 
             this.tpAna.Controls.Add(this.groupBox4);
@@ -342,6 +363,16 @@ namespace RoastBot
             this.tpAna.Text = "Anabot";
             this.tpAna.UseVisualStyleBackColor = true;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Enabled = false;
+            this.groupBox4.Location = new System.Drawing.Point(6, 60);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(278, 160);
+            this.groupBox4.TabIndex = 16;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "FOV coming soon";
+            // 
             // tpTrigger
             // 
             this.tpTrigger.Controls.Add(this.groupBox5);
@@ -355,50 +386,6 @@ namespace RoastBot
             this.tpTrigger.TabIndex = 3;
             this.tpTrigger.Text = "Triggerbot";
             this.tpTrigger.UseVisualStyleBackColor = true;
-            // 
-            // gbDrawing
-            // 
-            this.gbDrawing.Enabled = false;
-            this.gbDrawing.Location = new System.Drawing.Point(6, 56);
-            this.gbDrawing.Name = "gbDrawing";
-            this.gbDrawing.Size = new System.Drawing.Size(278, 164);
-            this.gbDrawing.TabIndex = 14;
-            this.gbDrawing.TabStop = false;
-            this.gbDrawing.Text = "Drawing coming soon!";
-            // 
-            // tpWidow
-            // 
-            this.tpWidow.Controls.Add(this.groupBox1);
-            this.tpWidow.Controls.Add(this.cbWidowMode);
-            this.tpWidow.Controls.Add(this.label8);
-            this.tpWidow.Controls.Add(this.label9);
-            this.tpWidow.Controls.Add(this.nudWidowKey);
-            this.tpWidow.Location = new System.Drawing.Point(4, 22);
-            this.tpWidow.Name = "tpWidow";
-            this.tpWidow.Size = new System.Drawing.Size(290, 226);
-            this.tpWidow.TabIndex = 4;
-            this.tpWidow.Text = "Widowbot";
-            this.tpWidow.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Enabled = false;
-            this.groupBox3.Location = new System.Drawing.Point(6, 60);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(278, 160);
-            this.groupBox3.TabIndex = 15;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "FOV coming soon";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Enabled = false;
-            this.groupBox4.Location = new System.Drawing.Point(6, 60);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(278, 160);
-            this.groupBox4.TabIndex = 16;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "FOV coming soon";
             // 
             // groupBox5
             // 
@@ -464,6 +451,20 @@ namespace RoastBot
             0,
             0});
             this.nudTriggerKey.ValueChanged += new System.EventHandler(this.nudTriggerKey_ValueChanged);
+            // 
+            // tpWidow
+            // 
+            this.tpWidow.Controls.Add(this.groupBox1);
+            this.tpWidow.Controls.Add(this.cbWidowMode);
+            this.tpWidow.Controls.Add(this.label8);
+            this.tpWidow.Controls.Add(this.label9);
+            this.tpWidow.Controls.Add(this.nudWidowKey);
+            this.tpWidow.Location = new System.Drawing.Point(4, 22);
+            this.tpWidow.Name = "tpWidow";
+            this.tpWidow.Size = new System.Drawing.Size(290, 226);
+            this.tpWidow.TabIndex = 4;
+            this.tpWidow.Text = "Widowbot";
+            this.tpWidow.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -557,9 +558,11 @@ namespace RoastBot
             this.Controls.Add(this.btnSaveSettings);
             this.Controls.Add(this.lblResolution);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.Text = "RoastBot";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nudAimKey)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudAnaKey)).EndInit();
             this.tbMain.ResumeLayout(false);
@@ -571,15 +574,14 @@ namespace RoastBot
             this.tpAna.PerformLayout();
             this.tpTrigger.ResumeLayout(false);
             this.tpTrigger.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTriggerKey)).EndInit();
             this.tpWidow.ResumeLayout(false);
             this.tpWidow.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTriggerKey)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidowKey)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.FormClosing += new FormClosingEventHandler(frmMain_FormClosing);
 
         }
 
