@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using RoastBot.Helpers;
 using RoastBot.Modules;
@@ -36,6 +37,18 @@ namespace RoastBot
 
             TopMost = true;
             Visible = true;
+
+            // Run the aimbot.
+            var thread = new Thread(Run) { IsBackground = true };
+            thread.Start();
+        }
+        private void Run()
+        {
+            while (true)
+            {
+                Invalidate();
+                Thread.Sleep(200);
+            }
         }
 
         protected override CreateParams CreateParams
@@ -51,17 +64,16 @@ namespace RoastBot
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.DrawRectangle(pen, new Rectangle(0, 0, Size.Width - 1, Size.Height - 1));
+            e.Graphics.Clear(Color.Teal);
             var x = 10;
             var y = 50;
-            e.Graphics.Clear(Color.Teal);
 
             if (!SettingsManager.General.DrawOverlay) return;
 
-            if(SettingsManager.Aimbot.DrawOverlay)
+            if(SettingsManager.Aimbot.DrawStatus)
                 y = DrawAimbotGui(x, y, e);
 
-            if(SettingsManager.Anabot.DrawOverlay)
+            if(SettingsManager.Anabot.DrawStatus)
                 y = DrawAnabotGui(x, y, e);
 
             if(SettingsManager.Triggerbot.DrawOverlay)
@@ -69,11 +81,6 @@ namespace RoastBot
 
             if(SettingsManager.Widowbot.DrawOverlay)
                 y = DrawWidowBotGui(x, y, e);
-        }
-
-        private SolidBrush GetBrush(bool condition)
-        {
-            return condition ? enabledBrush : disabledBrush;
         }
 
         private int DrawAimbotGui(int x, int y, PaintEventArgs e)
@@ -169,6 +176,11 @@ namespace RoastBot
                     break;
             }
             return postDrawY;
+        }
+
+        private SolidBrush GetBrush(bool condition)
+        {
+            return condition ? enabledBrush : disabledBrush;
         }
     }
 }

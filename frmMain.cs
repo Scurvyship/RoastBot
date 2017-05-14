@@ -5,7 +5,7 @@ using RoastBot.Modules;
 
 namespace RoastBot
 {
-    public partial class frmMain : Form
+    public partial class FrmMain : Form
     {
         private Aimbot aimbot;
         private Anabot anabot;
@@ -14,19 +14,17 @@ namespace RoastBot
 
         private FrmDrawing drawingForm;
 
-        public frmMain()
+        public FrmMain()
         {
             InitializeComponent();
 
             SettingsManager.LoadSettingsFromDefaultPath();
             UpdateUserInterface();
 
-            aimbot = new Aimbot(this);
+            aimbot = new Aimbot();
             anabot = new Anabot();
             triggerbot = new Triggerbot();
             widowbot = new Widowbot();
-
-            drawingForm = new FrmDrawing();
         }
 
         private void UpdateUserInterface()
@@ -72,10 +70,10 @@ namespace RoastBot
             cbWidowMode.SelectedIndex = (int)SettingsManager.Widowbot.AimMode;
 
             cbDrawOver.Checked = SettingsManager.General.DrawOverlay;
-            cbDrawAim.Checked = SettingsManager.Aimbot.DrawOverlay;
-            cbDrawAna.Checked = SettingsManager.Anabot.DrawOverlay;
-            cbDrawTrigger.Checked = SettingsManager.Triggerbot.DrawOverlay;
-            cbDrawWidow.Checked = SettingsManager.Widowbot.DrawOverlay;
+            cbAimStatus.Checked = SettingsManager.Aimbot.DrawStatus;
+            cbAnabotStatus.Checked = SettingsManager.Anabot.DrawStatus;
+            cbTriggerStatus.Checked = SettingsManager.Triggerbot.DrawOverlay;
+            cbWidowStatus.Checked = SettingsManager.Widowbot.DrawOverlay;
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -92,25 +90,22 @@ namespace RoastBot
         private void cbAimEnable_CheckedChanged(object sender, EventArgs e)
         {
             SettingsManager.Aimbot.IsEnabled = cbAimEnable.Checked;
-            RedrawGUI();
         }
 
         private void cbAnaEnable_CheckedChanged(object sender, EventArgs e)
         {
             SettingsManager.Anabot.IsEnabled = cbAnaEnable.Checked;
-            RedrawGUI();
+
         }
 
         private void cbTriggerEnable_CheckedChanged(object sender, EventArgs e)
         {
             SettingsManager.Triggerbot.IsEnabled = cbTriggerEnable.Checked;
-            RedrawGUI();
         }
 
         private void cbWidowEnable_CheckedChanged(object sender, EventArgs e)
         {
             SettingsManager.Widowbot.IsEnabled = cbWidowEnable.Checked;
-            RedrawGUI();
         }
 
         private void nudAimKey_ValueChanged(object sender, EventArgs e)
@@ -121,7 +116,6 @@ namespace RoastBot
         private void cbAimMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             SettingsManager.Aimbot.AimMode = (AimMode) cbAimMode.SelectedIndex;
-            RedrawGUI();
         }
 
         private void nudAnaKey_ValueChanged(object sender, EventArgs e)
@@ -132,7 +126,6 @@ namespace RoastBot
         private void cbAnaMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             SettingsManager.Anabot.AimMode = (AimMode) cbAnaMode.SelectedIndex;
-            RedrawGUI();
         }
 
         private void nudTriggerKey_ValueChanged(object sender, EventArgs e)
@@ -143,7 +136,6 @@ namespace RoastBot
         private void cbTriggerMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             SettingsManager.Triggerbot.AimMode = (AimMode) cbTriggerMode.SelectedIndex;
-            RedrawGUI();
         }
 
         private void nudWidowKey_ValueChanged(object sender, EventArgs e)
@@ -154,14 +146,13 @@ namespace RoastBot
         private void cbWidowMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             SettingsManager.Widowbot.AimMode = (AimMode) cbWidowMode.SelectedIndex;
-            RedrawGUI();
         }
 
         private void cbMonitor_SelectedIndexChanged(object sender, EventArgs e)
         {
             SettingsManager.General.GameMonitor = cbMonitor.SelectedIndex;
             GrabScreenResolution();
-            aimbot = new Aimbot(this);
+            aimbot = new Aimbot();
             anabot = new Anabot();
             triggerbot = new Triggerbot();
             widowbot = new Widowbot();
@@ -173,39 +164,47 @@ namespace RoastBot
             Environment.Exit(Environment.ExitCode);
         }
 
-        public void RedrawGUI()
-        {
-            drawingForm?.Invalidate();
-        }
-
         private void cbDrawOver_CheckedChanged(object sender, EventArgs e)
         {
             SettingsManager.General.DrawOverlay = cbDrawOver.Checked;
             var isDrawingOverlay = SettingsManager.General.DrawOverlay;
-            cbDrawAim.Enabled = isDrawingOverlay;
-            cbDrawAna.Enabled = isDrawingOverlay;
-            cbDrawTrigger.Enabled = isDrawingOverlay;
-            cbDrawWidow.Enabled = isDrawingOverlay;
+            if (!isDrawingOverlay)
+            {
+                drawingForm.Dispose();
+                drawingForm.Close();
+            }
+            else
+            {
+                drawingForm = new FrmDrawing();
+            }
+            cbAimStatus.Enabled = isDrawingOverlay;
+            cbAimFov.Enabled = isDrawingOverlay;
+            cbAnabotStatus.Enabled = isDrawingOverlay;
+            cbAnaFov.Enabled = isDrawingOverlay;
+            cbTriggerStatus.Enabled = isDrawingOverlay;
+            cbTriggerFov.Enabled = isDrawingOverlay;
+            cbWidowStatus.Enabled = isDrawingOverlay;
+            cbWidowFov.Enabled = isDrawingOverlay;
         }
 
         private void cbDrawAim_CheckedChanged(object sender, EventArgs e)
         {
-            SettingsManager.Aimbot.DrawOverlay = cbDrawAim.Checked;
+            SettingsManager.Aimbot.DrawStatus = cbAimStatus.Checked;
         }
 
         private void cbDrawAna_CheckedChanged(object sender, EventArgs e)
         {
-            SettingsManager.Anabot.DrawOverlay = cbDrawAna.Checked;
+            SettingsManager.Anabot.DrawStatus = cbAnabotStatus.Checked;
         }
 
         private void cbDrawTrigger_CheckedChanged(object sender, EventArgs e)
         {
-            SettingsManager.Triggerbot.DrawOverlay = cbDrawTrigger.Checked;
+            SettingsManager.Triggerbot.DrawOverlay = cbTriggerStatus.Checked;
         }
 
         private void cbDrawWidow_CheckedChanged(object sender, EventArgs e)
         {
-            SettingsManager.Widowbot.DrawOverlay = cbDrawWidow.Checked;
+            SettingsManager.Widowbot.DrawOverlay = cbWidowStatus.Checked;
         }
     }
 }

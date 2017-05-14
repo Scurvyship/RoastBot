@@ -59,17 +59,22 @@
     <Compile Include="FrmDrawing.Designer.cs">
       <DependentUpon>FrmDrawing.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AimMode.cs" />
     <Compile Include="Helpers\MouseHelper.cs" />
     <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="Helpers\SearchHelper.cs" />
     <Compile Include="Modules\Aimbot.cs" />
+    <Compile Include="Objects\GeneralSettings.cs" />
+    <Compile Include="Objects\TriggerbotSettings.cs" />
+    <Compile Include="Objects\AnabotSettings.cs" />
+    <Compile Include="Objects\WidowbotSettings.cs" />
+    <Compile Include="Objects\AimbotSettings.cs" />
     <Compile Include="Modules\Anabot.cs" />
     <Compile Include="Modules\SettingsManager.cs" />
     <Compile Include="Modules\Triggerbot.cs" />
@@ -80,8 +85,8 @@
     <EmbeddedResource Include="FrmDrawing.resx">
       <DependentUpon>FrmDrawing.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

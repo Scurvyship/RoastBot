@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
-using RoastBot.Helpers;
+
+using RoastBot.Objects;
 
 namespace RoastBot.Modules
 {
@@ -16,128 +16,6 @@ namespace RoastBot.Modules
 
         private const string SettingsFolderName = "settings";
         private static readonly string SettingsFolderFullPath = $"{Environment.CurrentDirectory}\\settings";
-
-        internal class AimbotSettings
-        {
-            public AimbotSettings()
-            {
-                IsEnabled = true;
-                IsToggled = false;
-                AimKey = 0x02;
-                AntiShake = false;
-                ForceHeadshot = false;
-                TargetColor = Color.FromArgb(255, 0, 19);
-                AimMode = AimMode.Toggle;
-                DrawOverlay = true;
-            }
-
-            public bool IsEnabled { get; set; }
-
-            public bool IsToggled { get; set; }
-
-            public Color TargetColor { get; set; }
-
-            public byte AimKey { get; set; }
-
-            public bool ForceHeadshot { get; set; }
-
-            public bool AntiShake { get; set; }
-
-            public AimMode AimMode { get; set; }
-
-            public bool DrawOverlay { get; set; }
-        }
-
-        internal class WidowbotSettings
-        {
-            public WidowbotSettings()
-            {
-                IsEnabled = true;
-                IsToggled = false;
-                AimKey = 0xA4;
-                TargetColor = Color.FromArgb(215, 40, 35);
-                AimMode = AimMode.Toggle;
-                DrawOverlay = true;
-            }
-
-            public bool IsEnabled { get; set; }
-
-            public int AimKey { get; set; }
-
-            public Color TargetColor { get; set; }
-            
-            public AimMode AimMode { get; set; }
-
-            public bool IsToggled { get; set; }
-
-            public bool DrawOverlay { get; set; }
-        }
-
-        internal class AnabotSettings
-        {
-            public AnabotSettings()
-            {
-                AimKey = 0x05;
-                IsEnabled = true;
-                TargetColor = Color.FromArgb(202, 164, 63);
-                AimMode = AimMode.Toggle;
-                IsToggled = false;
-                DrawOverlay = true;
-            }
-
-            public byte AimKey { get; set; }
-
-            public bool IsEnabled { get; set; }
-
-            public Color TargetColor { get; set; }
-
-            public AimMode AimMode { get; set; }
-
-            public bool IsToggled { get; set; }
-
-            public bool DrawOverlay { get; set; }
-        }
-
-        internal class TriggerbotSettings
-        {
-            public TriggerbotSettings()
-            {
-                AimKey = 0xA4;
-                IsEnabled = true;
-                TargetColor = Color.FromArgb(254, 0, 0);
-                AimMode = AimMode.Toggle;
-                IsToggled = false;
-                DrawOverlay = true;
-            }
-
-            public byte AimKey { get; set; }
-
-            public bool IsEnabled { get; set; }
-
-            public Color TargetColor { get; set; }
-
-            public AimMode AimMode { get; set; }
-
-            public bool IsToggled { get; set; }
-
-            public bool DrawOverlay { get; set; }
-        }
-
-        internal class GeneralSettings
-        {
-            public GeneralSettings()
-            {
-                DrawOverlay = true;
-                GameMonitor = 0;
-                DrawModuleStatus = true;
-            }
-
-            public int GameMonitor { get; set; }
-
-            public bool DrawOverlay { get; set; }
-
-            public bool DrawModuleStatus { get; set; }
-        }
 
         public static void SaveSettingsToFile()
         {
@@ -178,9 +56,13 @@ namespace RoastBot.Modules
         private static void SerializeObjectToFile(object obj, string filePath)
         {
             var serializer = new JsonSerializer();
-            using (var file = File.CreateText(filePath))
+
+            using (var file = File.Create(filePath))
+            using (var sw = new StreamWriter(file))
+            using (var jw = new JsonTextWriter(sw))
             {
-                serializer.Serialize(file, obj);
+                jw.Formatting = Formatting.Indented;
+                serializer.Serialize(jw, obj);
             }
         }
     }

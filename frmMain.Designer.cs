@@ -2,7 +2,7 @@
 
 namespace RoastBot
 {
-    partial class frmMain
+    partial class FrmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace RoastBot
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.cbAimMode = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nudAimKey = new System.Windows.Forms.NumericUpDown();
@@ -45,10 +45,14 @@ namespace RoastBot
             this.tbMain = new System.Windows.Forms.TabControl();
             this.tgGeneral = new System.Windows.Forms.TabPage();
             this.gbDrawing = new System.Windows.Forms.GroupBox();
-            this.cbDrawWidow = new System.Windows.Forms.CheckBox();
-            this.cbDrawTrigger = new System.Windows.Forms.CheckBox();
-            this.cbDrawAna = new System.Windows.Forms.CheckBox();
-            this.cbDrawAim = new System.Windows.Forms.CheckBox();
+            this.cbWidowFov = new System.Windows.Forms.CheckBox();
+            this.cbTriggerFov = new System.Windows.Forms.CheckBox();
+            this.cbAnaFov = new System.Windows.Forms.CheckBox();
+            this.cbAimFov = new System.Windows.Forms.CheckBox();
+            this.cbWidowStatus = new System.Windows.Forms.CheckBox();
+            this.cbTriggerStatus = new System.Windows.Forms.CheckBox();
+            this.cbAnabotStatus = new System.Windows.Forms.CheckBox();
+            this.cbAimStatus = new System.Windows.Forms.CheckBox();
             this.cbDrawOver = new System.Windows.Forms.CheckBox();
             this.cbMonitor = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -259,10 +263,14 @@ namespace RoastBot
             // 
             // gbDrawing
             // 
-            this.gbDrawing.Controls.Add(this.cbDrawWidow);
-            this.gbDrawing.Controls.Add(this.cbDrawTrigger);
-            this.gbDrawing.Controls.Add(this.cbDrawAna);
-            this.gbDrawing.Controls.Add(this.cbDrawAim);
+            this.gbDrawing.Controls.Add(this.cbWidowFov);
+            this.gbDrawing.Controls.Add(this.cbTriggerFov);
+            this.gbDrawing.Controls.Add(this.cbAnaFov);
+            this.gbDrawing.Controls.Add(this.cbAimFov);
+            this.gbDrawing.Controls.Add(this.cbWidowStatus);
+            this.gbDrawing.Controls.Add(this.cbTriggerStatus);
+            this.gbDrawing.Controls.Add(this.cbAnabotStatus);
+            this.gbDrawing.Controls.Add(this.cbAimStatus);
             this.gbDrawing.Controls.Add(this.cbDrawOver);
             this.gbDrawing.Location = new System.Drawing.Point(6, 56);
             this.gbDrawing.Name = "gbDrawing";
@@ -271,49 +279,93 @@ namespace RoastBot
             this.gbDrawing.TabStop = false;
             this.gbDrawing.Text = "Overlay WIP";
             // 
-            // cbDrawWidow
+            // cbWidowFov
             // 
-            this.cbDrawWidow.AutoSize = true;
-            this.cbDrawWidow.Location = new System.Drawing.Point(16, 111);
-            this.cbDrawWidow.Name = "cbDrawWidow";
-            this.cbDrawWidow.Size = new System.Drawing.Size(102, 17);
-            this.cbDrawWidow.TabIndex = 4;
-            this.cbDrawWidow.Text = "Draw Widowbot";
-            this.cbDrawWidow.UseVisualStyleBackColor = true;
-            this.cbDrawWidow.CheckedChanged += new System.EventHandler(this.cbDrawWidow_CheckedChanged);
+            this.cbWidowFov.AutoSize = true;
+            this.cbWidowFov.Enabled = false;
+            this.cbWidowFov.Location = new System.Drawing.Point(140, 111);
+            this.cbWidowFov.Name = "cbWidowFov";
+            this.cbWidowFov.Size = new System.Drawing.Size(98, 17);
+            this.cbWidowFov.TabIndex = 8;
+            this.cbWidowFov.Text = "Widowbot FOV";
+            this.cbWidowFov.UseVisualStyleBackColor = true;
             // 
-            // cbDrawTrigger
+            // cbTriggerFov
             // 
-            this.cbDrawTrigger.AutoSize = true;
-            this.cbDrawTrigger.Location = new System.Drawing.Point(16, 88);
-            this.cbDrawTrigger.Name = "cbDrawTrigger";
-            this.cbDrawTrigger.Size = new System.Drawing.Size(102, 17);
-            this.cbDrawTrigger.TabIndex = 3;
-            this.cbDrawTrigger.Text = "Draw Triggerbot";
-            this.cbDrawTrigger.UseVisualStyleBackColor = true;
-            this.cbDrawTrigger.CheckedChanged += new System.EventHandler(this.cbDrawTrigger_CheckedChanged);
+            this.cbTriggerFov.AutoSize = true;
+            this.cbTriggerFov.Enabled = false;
+            this.cbTriggerFov.Location = new System.Drawing.Point(140, 88);
+            this.cbTriggerFov.Name = "cbTriggerFov";
+            this.cbTriggerFov.Size = new System.Drawing.Size(98, 17);
+            this.cbTriggerFov.TabIndex = 7;
+            this.cbTriggerFov.Text = "Triggerbot FOV";
+            this.cbTriggerFov.UseVisualStyleBackColor = true;
             // 
-            // cbDrawAna
+            // cbAnaFov
             // 
-            this.cbDrawAna.AutoSize = true;
-            this.cbDrawAna.Location = new System.Drawing.Point(16, 65);
-            this.cbDrawAna.Name = "cbDrawAna";
-            this.cbDrawAna.Size = new System.Drawing.Size(88, 17);
-            this.cbDrawAna.TabIndex = 2;
-            this.cbDrawAna.Text = "Draw Anabot";
-            this.cbDrawAna.UseVisualStyleBackColor = true;
-            this.cbDrawAna.CheckedChanged += new System.EventHandler(this.cbDrawAna_CheckedChanged);
+            this.cbAnaFov.AutoSize = true;
+            this.cbAnaFov.Enabled = false;
+            this.cbAnaFov.Location = new System.Drawing.Point(140, 65);
+            this.cbAnaFov.Name = "cbAnaFov";
+            this.cbAnaFov.Size = new System.Drawing.Size(84, 17);
+            this.cbAnaFov.TabIndex = 6;
+            this.cbAnaFov.Text = "Anabot FOV";
+            this.cbAnaFov.UseVisualStyleBackColor = true;
             // 
-            // cbDrawAim
+            // cbAimFov
             // 
-            this.cbDrawAim.AutoSize = true;
-            this.cbDrawAim.Location = new System.Drawing.Point(16, 42);
-            this.cbDrawAim.Name = "cbDrawAim";
-            this.cbDrawAim.Size = new System.Drawing.Size(86, 17);
-            this.cbDrawAim.TabIndex = 1;
-            this.cbDrawAim.Text = "Draw Aimbot";
-            this.cbDrawAim.UseVisualStyleBackColor = true;
-            this.cbDrawAim.CheckedChanged += new System.EventHandler(this.cbDrawAim_CheckedChanged);
+            this.cbAimFov.AutoSize = true;
+            this.cbAimFov.Enabled = false;
+            this.cbAimFov.Location = new System.Drawing.Point(140, 42);
+            this.cbAimFov.Name = "cbAimFov";
+            this.cbAimFov.Size = new System.Drawing.Size(82, 17);
+            this.cbAimFov.TabIndex = 5;
+            this.cbAimFov.Text = "Aimbot FOV";
+            this.cbAimFov.UseVisualStyleBackColor = true;
+            // 
+            // cbWidowStatus
+            // 
+            this.cbWidowStatus.AutoSize = true;
+            this.cbWidowStatus.Location = new System.Drawing.Point(19, 111);
+            this.cbWidowStatus.Name = "cbWidowStatus";
+            this.cbWidowStatus.Size = new System.Drawing.Size(107, 17);
+            this.cbWidowStatus.TabIndex = 4;
+            this.cbWidowStatus.Text = "Widowbot Status";
+            this.cbWidowStatus.UseVisualStyleBackColor = true;
+            this.cbWidowStatus.CheckedChanged += new System.EventHandler(this.cbDrawWidow_CheckedChanged);
+            // 
+            // cbTriggerStatus
+            // 
+            this.cbTriggerStatus.AutoSize = true;
+            this.cbTriggerStatus.Location = new System.Drawing.Point(19, 88);
+            this.cbTriggerStatus.Name = "cbTriggerStatus";
+            this.cbTriggerStatus.Size = new System.Drawing.Size(107, 17);
+            this.cbTriggerStatus.TabIndex = 3;
+            this.cbTriggerStatus.Text = "Triggerbot Status";
+            this.cbTriggerStatus.UseVisualStyleBackColor = true;
+            this.cbTriggerStatus.CheckedChanged += new System.EventHandler(this.cbDrawTrigger_CheckedChanged);
+            // 
+            // cbAnabotStatus
+            // 
+            this.cbAnabotStatus.AutoSize = true;
+            this.cbAnabotStatus.Location = new System.Drawing.Point(19, 65);
+            this.cbAnabotStatus.Name = "cbAnabotStatus";
+            this.cbAnabotStatus.Size = new System.Drawing.Size(93, 17);
+            this.cbAnabotStatus.TabIndex = 2;
+            this.cbAnabotStatus.Text = "Anabot Status";
+            this.cbAnabotStatus.UseVisualStyleBackColor = true;
+            this.cbAnabotStatus.CheckedChanged += new System.EventHandler(this.cbDrawAna_CheckedChanged);
+            // 
+            // cbAimStatus
+            // 
+            this.cbAimStatus.AutoSize = true;
+            this.cbAimStatus.Location = new System.Drawing.Point(19, 42);
+            this.cbAimStatus.Name = "cbAimStatus";
+            this.cbAimStatus.Size = new System.Drawing.Size(91, 17);
+            this.cbAimStatus.TabIndex = 1;
+            this.cbAimStatus.Text = "Aimbot Status";
+            this.cbAimStatus.UseVisualStyleBackColor = true;
+            this.cbAimStatus.CheckedChanged += new System.EventHandler(this.cbDrawAim_CheckedChanged);
             // 
             // cbDrawOver
             // 
@@ -609,10 +661,10 @@ namespace RoastBot
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(64, 17);
-            this.toolStripStatusLabel1.Text = "Version 0.2";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(71, 17);
+            this.toolStripStatusLabel1.Text = "Version 0.2b";
             // 
-            // frmMain
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -625,7 +677,7 @@ namespace RoastBot
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "frmMain";
+            this.Name = "FrmMain";
             this.Text = "Dropbox";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nudAimKey)).EndInit();
@@ -692,10 +744,14 @@ namespace RoastBot
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private CheckBox cbDrawOver;
-        private CheckBox cbDrawWidow;
-        private CheckBox cbDrawTrigger;
-        private CheckBox cbDrawAna;
-        private CheckBox cbDrawAim;
+        private CheckBox cbWidowStatus;
+        private CheckBox cbTriggerStatus;
+        private CheckBox cbAnabotStatus;
+        private CheckBox cbAimStatus;
+        private CheckBox cbAimFov;
+        private CheckBox cbWidowFov;
+        private CheckBox cbTriggerFov;
+        private CheckBox cbAnaFov;
     }
 }
 

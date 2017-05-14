@@ -15,23 +15,19 @@ namespace RoastBot.Modules
         /// </summary>
         public List<Fov> Fovs;
 
-        private Fov MyFov;
-
-        private frmMain mainForm;
+        public Fov MyFov;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public Aimbot(frmMain parentForm)
+        public Aimbot()
         {
             // Initialize Fovs.
             Fovs = new List<Fov>
             {
-                new Fov { Resolution = new Point(1920, 1200), FieldOfView = new Rectangle(775, 410, 370, 185), RangeValues = new Point(45, 56), Tolerance = new Point(2, 2) },
-                new Fov { Resolution = new Point(1280, 720), FieldOfView = new Rectangle(500, 300, 245, 120), RangeValues = new Point(30, 42), Tolerance = new Point(2, 2) }
+                new Fov { Resolution = new Point(1920, 1200), FieldOfView = new Rectangle(775, 410, 370, 185), RangeValues = new Point(0, 56), Tolerance = new Point(2, 2) },
+                new Fov { Resolution = new Point(1280, 720), FieldOfView = new Rectangle(500, 300, 245, 120), RangeValues = new Point(0, 42), Tolerance = new Point(2, 2) }
             };
-
-            mainForm = parentForm;
 
             var gameScreen = Screen.AllScreens[SettingsManager.General.GameMonitor];
 
@@ -55,7 +51,6 @@ namespace RoastBot.Modules
             // Run the main routine.
             while (true)
             {
-                mainForm.RedrawGUI();
                 if (MouseHelper.GetAsyncKeyState(SettingsManager.Aimbot.AimKey) == -32767)
                 {
                     if (lastKeyState == false)
