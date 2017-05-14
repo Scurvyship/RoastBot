@@ -5,11 +5,10 @@ using System.Threading;
 using System.Windows.Forms;
 using RoastBot.Helpers;
 using RoastBot.Objects;
-using static RoastBot.Helpers.PrettyLog;
 
-namespace RoastBot.Modules.Triggerbot
+namespace RoastBot.Modules
 {
-    internal class Triggerbot : IModule
+    internal class Triggerbot
     {
         /// <summary>
         /// Contains all FOVs.
@@ -29,19 +28,15 @@ namespace RoastBot.Modules.Triggerbot
                 new Fov { Resolution = new Point(1920, 1080), FieldOfView = new Rectangle(960, 400, 1, 165) }
             };
 
-            MyFov = Fovs.FirstOrDefault(x => x.Resolution == new Point(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
+            var gameScreen = Screen.AllScreens[SettingsManager.General.GameMonitor];
+
+            MyFov = Fovs.FirstOrDefault(x => x.Resolution == new Point(gameScreen.Bounds.Width, gameScreen.Bounds.Height));
 
             // Run the aimbot.
             var thread = new Thread(Run);
             if (MyFov != null)
             {
                 thread.Start();
-                LogInfo("Triggerbot initialized");
-            }
-            else
-            {
-                LogError("Could not initialize Triggerbot as screen does not match available resolutions.\n" +
-                         "This will be fixed later, for now make your screen resolution 1920x1080.\n");
             }
         }
 
@@ -54,9 +49,26 @@ namespace RoastBot.Modules.Triggerbot
         /// </summary>
         public void Run()
         {
+            var lastKeyState = false;
+
             while (true)
             {
-                if(SettingsManager.Triggerbot.IsEnabled)
+                if (MouseHelper.GetAsyncKeyState(SettingsManager.Triggerbot.AimKey) < 0)
+                {
+                    if (lastKeyState == false)
+                    {
+                        lastKeyState = true;
+                        SettingsManager.Triggerbot.IsToggled = !SettingsManager.Triggerbot.IsToggled;
+                    }
+                }
+                else
+                {
+                    lastKeyState = false;
+                }
+
+                if (!ShouldRun())
+                    continue;
+
                 if (MouseHelper.GetAsyncKeyState(SettingsManager.Triggerbot.AimKey) < 0)
                 {
                     // Get the screen capture.
@@ -79,36 +91,24 @@ namespace RoastBot.Modules.Triggerbot
             }
         }
 
-        public void HandleCommand(IEnumerable<string> args)
+        private static bool ShouldRun()
         {
-            if (args == null)
-            {
-                LogError("Somehow received null arguments, wat?");
-                return;
-            }
-            var argArray = args.ToArray();
-            if (!argArray.Any())
-            {
-                LogWarning("You must specify a command for Triggerbot.\nType 'triggerbot help' for help.\n");
-                return;
-            }
-            var command = argArray[0];
+            if (!SettingsManager.Triggerbot.IsEnabled)
+                return false;
 
-            switch (command)
+            switch (SettingsManager.Triggerbot.AimMode)
             {
-                case "toggle":
-                    SettingsManager.Triggerbot.IsEnabled = !SettingsManager.Triggerbot.IsEnabled;
-                    LogInfo($"Triggerbot enabled: {SettingsManager.Triggerbot.IsEnabled}");
+                case AimMode.Hold:
+                    if (MouseHelper.GetAsyncKeyState(SettingsManager.Triggerbot.AimKey) >= 0)
+                        return false;
                     break;
-                case "help":
-                    LogInfo("Commands available for Triggerbot:\n\n" +
-                            "Toggle\t- Enable/Disable the triggerbot\n" +
-                            "Help\t- Print this text again.\n");
-                    break;
-                default:
-                    LogWarning($"Unrecognised command {command}.\nType 'triggerbot help' to view all commands.");
+                case AimMode.Toggle:
+                    if (!SettingsManager.Triggerbot.IsToggled)
+                        return false;
                     break;
             }
+
+            return true;
         }
     }
 }

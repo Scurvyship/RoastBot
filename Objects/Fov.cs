@@ -2,7 +2,7 @@
 
 namespace RoastBot.Objects
 {
-    internal class Fov
+    class Fov
     {
         public Point Resolution { get; set; }
 

@@ -5,11 +5,10 @@ using System.Threading;
 using System.Windows.Forms;
 using RoastBot.Helpers;
 using RoastBot.Objects;
-using static RoastBot.Helpers.PrettyLog;
 
-namespace RoastBot.Modules.Aimbot
+namespace RoastBot.Modules
 {
-    internal class Aimbot : IModule
+    internal class Aimbot
     {
         /// <summary>
         /// Contains all FOVs.
@@ -30,18 +29,15 @@ namespace RoastBot.Modules.Aimbot
                 new Fov { Resolution = new Point(1280, 720), FieldOfView = new Rectangle(500, 300, 245, 120), RangeValues = new Point(30, 42), Tolerance = new Point(2, 2) }
             };
 
-            MyFov = Fovs.FirstOrDefault(x => x.Resolution == new Point(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
+            var gameScreen = Screen.AllScreens[SettingsManager.General.GameMonitor];
+
+            MyFov = Fovs.FirstOrDefault(x => x.Resolution == new Point(gameScreen.Bounds.Width, gameScreen.Bounds.Height));
 
             if (MyFov != null)
             {
                 // Run the aimbot.
-                new Thread(Run).Start();
-                LogInfo("Aimbot initialized");
-            }
-            else
-            {
-                LogError("Could not initialize Aimbot as screen does not match resolutions available.\n" +
-                         "This will be fixed later, for now make your screen resolution 1920x1080\nor 1280x720.\n");
+                var thread = new Thread(Run) { IsBackground = true };
+                thread.Start();
             }
         }
 
@@ -50,9 +46,27 @@ namespace RoastBot.Modules.Aimbot
         /// </summary>
         public void Run()
         {
+            var lastKeyState = false;
+
             // Run the main routine.
             while (true)
             {
+                if (MouseHelper.GetAsyncKeyState(SettingsManager.Aimbot.AimKey) < 0)
+                {
+                    if (lastKeyState == false)
+                    {
+                        lastKeyState = true;
+                        SettingsManager.Aimbot.IsToggled = !SettingsManager.Aimbot.IsToggled;
+                    }
+                }
+                else
+                {
+                    lastKeyState = false;
+                }
+
+                if (!ShouldRun())
+                    continue;
+
                 if (MouseHelper.GetAsyncKeyState(SettingsManager.Aimbot.AimKey) < 0)
                 {
                     // Get the screen capture.
@@ -78,38 +92,24 @@ namespace RoastBot.Modules.Aimbot
             }
         }
 
-        public void HandleCommand(IEnumerable<string> args)
+        private bool ShouldRun()
         {
-            var argsArray = args.ToArray();
-            if (!argsArray.Any())
+            if (!SettingsManager.Aimbot.IsEnabled)
+                return false;
+
+            switch (SettingsManager.Aimbot.AimMode)
             {
-                LogError("You must specify a command, type 'settings help' for help.");
-                return;
-            }
-            var command = argsArray[0];
-            switch (command)
-            {
-                case "forcehs":
-                case "hs":
-                case "headshot":
-                    SettingsManager.Aimbot.ForceHeadshot = !SettingsManager.Aimbot.ForceHeadshot;
-                    LogInfo($"Force headshots: {SettingsManager.Aimbot.ForceHeadshot}");
+                case AimMode.Hold:
+                    if (MouseHelper.GetAsyncKeyState(SettingsManager.Aimbot.AimKey) >= 0)
+                        return false;
                     break;
-                case "antishake":
-                case "noshake":
-                    SettingsManager.Aimbot.ForceHeadshot = !SettingsManager.Aimbot.ForceHeadshot;
-                    LogInfo($"Force headshots: {SettingsManager.Aimbot.ForceHeadshot}");
-                    break;
-                case "help":
-                    LogInfo("Commands available for Aimbot:\n\n" +
-                            "Headshot, forcehs, hs\t- Force aimbot to aim for heads only.\n" +
-                            "Antishake, noshake\t- I don't really understand what this does lmao.\n" +
-                            "Help\t\t\t- Print this text again.\n");
-                    break;
-                default:
-                    LogWarning($"Unrecognised command {command}.\nType 'aimbot help' to view all commands.\n");
+                case AimMode.Toggle:
+                    if (!SettingsManager.Aimbot.IsToggled)
+                        return false;
                     break;
             }
+
+            return true;
         }
     }
 }

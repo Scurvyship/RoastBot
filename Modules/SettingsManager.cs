@@ -1,32 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
-using static RoastBot.Helpers.PrettyLog;
+using RoastBot.Helpers;
 
 namespace RoastBot.Modules
 {
-    internal class SettingsManager : IModule
+    internal class SettingsManager
     {
         public static AimbotSettings Aimbot;
         public static AnabotSettings Anabot;
         public static WidowbotSettings Widowbot;
         public static TriggerbotSettings Triggerbot;
+        public static GeneralSettings General;
 
         private const string SettingsFolderName = "settings";
-        private readonly string SettingsFolderFullPath = $"{Environment.CurrentDirectory}\\settings";
+        private static readonly string SettingsFolderFullPath = $"{Environment.CurrentDirectory}\\settings";
 
         internal class AimbotSettings
         {
             public AimbotSettings()
             {
+                IsEnabled = true;
+                IsToggled = false;
                 AimKey = 0x02;
                 AntiShake = false;
                 ForceHeadshot = false;
                 TargetColor = Color.FromArgb(255, 0, 19);
+                AimMode = AimMode.Toggle;
             }
+
+            public bool IsEnabled { get; set; }
+
+            public bool IsToggled { get; set; }
 
             public Color TargetColor { get; set; }
 
@@ -35,19 +41,30 @@ namespace RoastBot.Modules
             public bool ForceHeadshot { get; set; }
 
             public bool AntiShake { get; set; }
+
+            public AimMode AimMode { get; set; }
         }
 
         internal class WidowbotSettings
         {
             public WidowbotSettings()
             {
+                IsEnabled = true;
+                IsToggled = false;
                 AimKey = 0xA4;
                 TargetColor = Color.FromArgb(215, 40, 35);
+                AimMode = AimMode.Toggle;
             }
+
+            public bool IsEnabled { get; set; }
 
             public int AimKey { get; set; }
 
             public Color TargetColor { get; set; }
+            
+            public AimMode AimMode { get; set; }
+
+            public bool IsToggled { get; set; }
         }
 
         internal class AnabotSettings
@@ -55,8 +72,10 @@ namespace RoastBot.Modules
             public AnabotSettings()
             {
                 AimKey = 0x05;
-                IsEnabled = false;
+                IsEnabled = true;
                 TargetColor = Color.FromArgb(202, 164, 63);
+                AimMode = AimMode.Toggle;
+                IsToggled = false;
             }
 
             public byte AimKey { get; set; }
@@ -65,6 +84,9 @@ namespace RoastBot.Modules
 
             public Color TargetColor { get; set; }
 
+            public AimMode AimMode { get; set; }
+
+            public bool IsToggled { get; set; }
         }
 
         internal class TriggerbotSettings
@@ -72,8 +94,10 @@ namespace RoastBot.Modules
             public TriggerbotSettings()
             {
                 AimKey = 0xA4;
-                IsEnabled = false;
+                IsEnabled = true;
                 TargetColor = Color.FromArgb(254, 0, 0);
+                AimMode = AimMode.Toggle;
+                IsToggled = false;
             }
 
             public byte AimKey { get; set; }
@@ -81,21 +105,35 @@ namespace RoastBot.Modules
             public bool IsEnabled { get; set; }
 
             public Color TargetColor { get; set; }
+
+            public AimMode AimMode { get; set; }
+
+            public bool IsToggled { get; set; }
         }
 
-        public void SaveSettingsToFile()
+        internal class GeneralSettings
+        {
+            public GeneralSettings()
+            {
+                GameMonitor = 0;
+            }
+
+            public int GameMonitor { get; set; }
+        }
+
+        public static void SaveSettingsToFile()
         {
             SerializeObjectToFile(Aimbot, $"{SettingsFolderName}\\aimbot.json");
             SerializeObjectToFile(Anabot, $"{SettingsFolderName}\\anabot.json");
             SerializeObjectToFile(Widowbot, $"{SettingsFolderName}\\widowbot.json");
             SerializeObjectToFile(Triggerbot, $"{SettingsFolderName}\\triggerbot.json");
+            SerializeObjectToFile(General, $"{SettingsFolderName}\\general.json");
         }
 
-        public void LoadSettingsFromDefaultPath()
+        public static void LoadSettingsFromDefaultPath()
         {
             if (!Directory.Exists(SettingsFolderFullPath))
             {
-                LogWarning($"No settings folder found, creating it now at {SettingsFolderFullPath}.");
                 Directory.CreateDirectory(SettingsFolderFullPath);
             }
 
@@ -103,6 +141,7 @@ namespace RoastBot.Modules
             Anabot = ReadJsonFromFile<AnabotSettings>($"{SettingsFolderFullPath}\\anabot.json");
             Triggerbot = ReadJsonFromFile<TriggerbotSettings>($"{SettingsFolderFullPath}\\triggerbot.json");
             Widowbot = ReadJsonFromFile<WidowbotSettings>($"{SettingsFolderFullPath}\\widowbot.json");
+            General = ReadJsonFromFile<GeneralSettings>($"{SettingsFolderFullPath}\\general.json");
             SaveSettingsToFile();
         }
 
@@ -110,7 +149,6 @@ namespace RoastBot.Modules
         {
             if (!File.Exists(filePath))
             {
-                LogWarning($"No file found for {typeof(T).Name}, creating new file from scratch.");
                 return new T();
             }
             using (var file = File.OpenText(filePath))
@@ -125,39 +163,6 @@ namespace RoastBot.Modules
             using (var file = File.CreateText(filePath))
             {
                 serializer.Serialize(file, obj);
-            }
-        }
-
-        public void HandleCommand(IEnumerable<string> args)
-        {
-            var argsArray = args.ToArray();
-            if (!argsArray.Any())
-            {
-                LogError("You must specify a command, type 'settings help' for help.");
-                return;
-            }
-            var command = argsArray[0];
-            switch (command)
-            {
-                case "save":
-                    LogInfo("Attempting to save settings");
-                    SaveSettingsToFile();
-                    LogInfo("Settings saved successfully.");
-                    break;
-                case "load":
-                    LogInfo("Attempting to load settings from file");
-                    LoadSettingsFromDefaultPath();
-                    LogInfo("Settings loaded successfully.");
-                    break;
-                case "help":
-                    LogInfo("Commands available for Settings Manager:\n\n" +
-                            "Save\t- Save RoastBot's settings to file.\n" +
-                            "Load\t- Load all settings from file.\n" +
-                            "Help\t- Print this text again.\n");
-                    break;
-                default:
-                    LogWarning($"Unrecognised command {command}.\nType 'settings help' to view all commands.\n");
-                    break;
             }
         }
     }

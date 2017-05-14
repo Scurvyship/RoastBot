@@ -2,8 +2,8 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
-using RoastBot.Modules;
 using RoastBot.Objects;
+using RoastBot.Modules;
 
 namespace RoastBot.Helpers
 {
