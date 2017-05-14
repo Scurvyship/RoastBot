@@ -65,7 +65,7 @@ namespace RoastBot.Modules
 
                 if (!ShouldRun())
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
                     continue;
                 }
                 // Get the screen capture.
