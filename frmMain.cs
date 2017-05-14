@@ -169,6 +169,7 @@ namespace RoastBot
 
         private void frmMain_FormClosing(object sender, EventArgs e)
         {
+            drawingForm.Close();
             Environment.Exit(Environment.ExitCode);
         }
 

@@ -26,16 +26,16 @@ namespace RoastBot
 
             TransparencyKey = BackColor = Color.Teal;
 
-            TopMost = false;
-            Visible = true;
-
             pen = new Pen(Color.Aqua);
             enabledBrush = new SolidBrush(Color.LimeGreen);
             disabledBrush = new SolidBrush(Color.Red);
             uiFont = new Font("Arial", 16);
 
             // Extend aero glass style on form init
-            //OnResize(null);
+            OnResize(null);
+
+            TopMost = true;
+            Visible = true;
         }
 
         protected override CreateParams CreateParams
@@ -53,7 +53,7 @@ namespace RoastBot
         {
             e.Graphics.DrawRectangle(pen, new Rectangle(0, 0, Size.Width - 1, Size.Height - 1));
             var x = 10;
-            var y = 10;
+            var y = 50;
             e.Graphics.Clear(Color.Teal);
 
             if (!SettingsManager.General.DrawOverlay) return;
