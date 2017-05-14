@@ -63,8 +63,9 @@ namespace RoastBot.Modules
                     lastKeyState = false;
                 }
 
-                if (!IsRunning())
+                if (!ShouldRun())
                 {
+                    Thread.Sleep(1000);
                     continue;
                 }
                 // Get the screen capture.
@@ -89,7 +90,7 @@ namespace RoastBot.Modules
             }
         }
 
-        private static bool IsRunning()
+        private static bool ShouldRun()
         {
             if (!SettingsManager.Widowbot.IsEnabled)
                 return false;

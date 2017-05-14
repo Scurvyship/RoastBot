@@ -67,7 +67,10 @@ namespace RoastBot.Modules
                 }
 
                 if (!ShouldRun())
+                {
+                    Thread.Sleep(1000);
                     continue;
+                }
 
                 if (MouseHelper.GetAsyncKeyState(SettingsManager.Triggerbot.AimKey) < 0)
                 {

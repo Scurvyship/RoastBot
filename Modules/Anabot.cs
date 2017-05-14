@@ -63,7 +63,10 @@ namespace RoastBot.Modules
                 }
 
                 if (!ShouldRun())
+                {
+                    Thread.Sleep(1000);
                     continue;
+                }
 
                 if (MouseHelper.GetAsyncKeyState(SettingsManager.Anabot.AimKey) < 0)
                 {
