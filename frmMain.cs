@@ -160,7 +160,7 @@ namespace RoastBot
 
         private void frmMain_FormClosing(object sender, EventArgs e)
         {
-            drawingForm.Close();
+            drawingForm?.Close();
             Environment.Exit(Environment.ExitCode);
         }
 
@@ -170,8 +170,8 @@ namespace RoastBot
             var isDrawingOverlay = SettingsManager.General.DrawOverlay;
             if (!isDrawingOverlay)
             {
-                drawingForm.Dispose();
-                drawingForm.Close();
+                drawingForm?.Dispose();
+                drawingForm?.Close();
             }
             else
             {
