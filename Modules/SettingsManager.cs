@@ -28,6 +28,7 @@ namespace RoastBot.Modules
                 ForceHeadshot = false;
                 TargetColor = Color.FromArgb(255, 0, 19);
                 AimMode = AimMode.Toggle;
+                DrawOverlay = true;
             }
 
             public bool IsEnabled { get; set; }
@@ -43,6 +44,8 @@ namespace RoastBot.Modules
             public bool AntiShake { get; set; }
 
             public AimMode AimMode { get; set; }
+
+            public bool DrawOverlay { get; set; }
         }
 
         internal class WidowbotSettings
@@ -54,6 +57,7 @@ namespace RoastBot.Modules
                 AimKey = 0xA4;
                 TargetColor = Color.FromArgb(215, 40, 35);
                 AimMode = AimMode.Toggle;
+                DrawOverlay = true;
             }
 
             public bool IsEnabled { get; set; }
@@ -65,6 +69,8 @@ namespace RoastBot.Modules
             public AimMode AimMode { get; set; }
 
             public bool IsToggled { get; set; }
+
+            public bool DrawOverlay { get; set; }
         }
 
         internal class AnabotSettings
@@ -76,6 +82,7 @@ namespace RoastBot.Modules
                 TargetColor = Color.FromArgb(202, 164, 63);
                 AimMode = AimMode.Toggle;
                 IsToggled = false;
+                DrawOverlay = true;
             }
 
             public byte AimKey { get; set; }
@@ -87,6 +94,8 @@ namespace RoastBot.Modules
             public AimMode AimMode { get; set; }
 
             public bool IsToggled { get; set; }
+
+            public bool DrawOverlay { get; set; }
         }
 
         internal class TriggerbotSettings
@@ -98,6 +107,7 @@ namespace RoastBot.Modules
                 TargetColor = Color.FromArgb(254, 0, 0);
                 AimMode = AimMode.Toggle;
                 IsToggled = false;
+                DrawOverlay = true;
             }
 
             public byte AimKey { get; set; }
@@ -109,16 +119,24 @@ namespace RoastBot.Modules
             public AimMode AimMode { get; set; }
 
             public bool IsToggled { get; set; }
+
+            public bool DrawOverlay { get; set; }
         }
 
         internal class GeneralSettings
         {
             public GeneralSettings()
             {
+                DrawOverlay = true;
                 GameMonitor = 0;
+                DrawModuleStatus = true;
             }
 
             public int GameMonitor { get; set; }
+
+            public bool DrawOverlay { get; set; }
+
+            public bool DrawModuleStatus { get; set; }
         }
 
         public static void SaveSettingsToFile()

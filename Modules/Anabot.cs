@@ -49,7 +49,7 @@ namespace RoastBot.Modules
             // Run the main routine.
             while (true)
             {
-                if (MouseHelper.GetAsyncKeyState(SettingsManager.Anabot.AimKey) < 0)
+                if (MouseHelper.GetAsyncKeyState(SettingsManager.Anabot.AimKey) == -32767)
                 {
                     if (lastKeyState == false)
                     {
@@ -89,7 +89,7 @@ namespace RoastBot.Modules
                     screenCapture = null;
                 }
 
-                Thread.Sleep(1);
+                Thread.Sleep(10);
             }
         }
 
@@ -100,7 +100,7 @@ namespace RoastBot.Modules
 
             switch (SettingsManager.Anabot.AimMode)
             {
-                case AimMode.Hold:
+                case AimMode.HoldDown:
                     if (MouseHelper.GetAsyncKeyState(SettingsManager.Anabot.AimKey) >= 0)
                         return false;
                     break;

@@ -17,17 +17,21 @@ namespace RoastBot.Modules
 
         private Fov MyFov;
 
+        private frmMain mainForm;
+
         /// <summary>
         /// Constructor.
         /// </summary>
-        public Aimbot()
+        public Aimbot(frmMain parentForm)
         {
             // Initialize Fovs.
             Fovs = new List<Fov>
             {
-                new Fov { Resolution = new Point(1920, 1080), FieldOfView = new Rectangle(775, 410, 370, 185), RangeValues = new Point(45, 56), Tolerance = new Point(2, 2) },
+                new Fov { Resolution = new Point(1920, 1200), FieldOfView = new Rectangle(775, 410, 370, 185), RangeValues = new Point(45, 56), Tolerance = new Point(2, 2) },
                 new Fov { Resolution = new Point(1280, 720), FieldOfView = new Rectangle(500, 300, 245, 120), RangeValues = new Point(30, 42), Tolerance = new Point(2, 2) }
             };
+
+            mainForm = parentForm;
 
             var gameScreen = Screen.AllScreens[SettingsManager.General.GameMonitor];
 
@@ -51,13 +55,14 @@ namespace RoastBot.Modules
             // Run the main routine.
             while (true)
             {
-                if (MouseHelper.GetAsyncKeyState(SettingsManager.Aimbot.AimKey) < 0)
+                mainForm.RedrawGUI();
+                if (MouseHelper.GetAsyncKeyState(SettingsManager.Aimbot.AimKey) == -32767)
                 {
                     if (lastKeyState == false)
                     {
-                        lastKeyState = true;
                         SettingsManager.Aimbot.IsToggled = !SettingsManager.Aimbot.IsToggled;
                     }
+                    lastKeyState = true;
                 }
                 else
                 {
@@ -70,29 +75,25 @@ namespace RoastBot.Modules
                     continue;
                 }
 
+                // Get the screen capture.
+                var screenCapture = ScreenHelper.GetScreenCapture(MyFov.FieldOfView);
 
-                if (MouseHelper.GetAsyncKeyState(SettingsManager.Aimbot.AimKey) < 0)
+                // Search for a target.
+                var coordinates = SearchHelper.SearchColor(ref screenCapture, SettingsManager.Aimbot.TargetColor);
+
+                // Only continue if a healthbar was found.
+                if (coordinates.X != 0 || coordinates.Y != 0)
                 {
-                    // Get the screen capture.
-                    var screenCapture = ScreenHelper.GetScreenCapture(MyFov.FieldOfView);
+                    coordinates = ScreenHelper.GetAbsoluteCoordinates(coordinates, MyFov.FieldOfView);
 
-                    // Search for a target.
-                    var coordinates = SearchHelper.SearchColor(ref screenCapture, SettingsManager.Aimbot.TargetColor);
-
-                    // Only continue if a healthbar was found.
-                    if (coordinates.X != 0 || coordinates.Y != 0)
-                    {
-                        coordinates = ScreenHelper.GetAbsoluteCoordinates(coordinates, MyFov.FieldOfView);
-
-                        MouseHelper.Move(ref MyFov, coordinates, SettingsManager.Aimbot.ForceHeadshot);
-                    }
-
-                    // Destroy the bitmap.
-                    screenCapture.Dispose();
-                    screenCapture = null;
+                    MouseHelper.Move(ref MyFov, coordinates, SettingsManager.Aimbot.ForceHeadshot);
                 }
 
-                Thread.Sleep(1);
+                // Destroy the bitmap.
+                screenCapture.Dispose();
+                screenCapture = null;
+
+                Thread.Sleep(10);
             }
         }
 
@@ -103,7 +104,7 @@ namespace RoastBot.Modules
 
             switch (SettingsManager.Aimbot.AimMode)
             {
-                case AimMode.Hold:
+                case AimMode.HoldDown:
                     if (MouseHelper.GetAsyncKeyState(SettingsManager.Aimbot.AimKey) >= 0)
                         return false;
                     break;

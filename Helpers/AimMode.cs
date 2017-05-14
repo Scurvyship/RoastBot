@@ -4,6 +4,6 @@
     {
         AlwaysOn,
         Toggle,
-        Hold
+        HoldDown
     }
 }

@@ -45,6 +45,11 @@ namespace RoastBot
             this.tbMain = new System.Windows.Forms.TabControl();
             this.tgGeneral = new System.Windows.Forms.TabPage();
             this.gbDrawing = new System.Windows.Forms.GroupBox();
+            this.cbDrawWidow = new System.Windows.Forms.CheckBox();
+            this.cbDrawTrigger = new System.Windows.Forms.CheckBox();
+            this.cbDrawAna = new System.Windows.Forms.CheckBox();
+            this.cbDrawAim = new System.Windows.Forms.CheckBox();
+            this.cbDrawOver = new System.Windows.Forms.CheckBox();
             this.cbMonitor = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cbWidowEnable = new System.Windows.Forms.CheckBox();
@@ -73,6 +78,7 @@ namespace RoastBot
             ((System.ComponentModel.ISupportInitialize)(this.nudAnaKey)).BeginInit();
             this.tbMain.SuspendLayout();
             this.tgGeneral.SuspendLayout();
+            this.gbDrawing.SuspendLayout();
             this.tpAim.SuspendLayout();
             this.tpAna.SuspendLayout();
             this.tpTrigger.SuspendLayout();
@@ -89,7 +95,7 @@ namespace RoastBot
             this.cbAimMode.Items.AddRange(new object[] {
             "Always on",
             "Toggle",
-            "Hold"});
+            "HoldDown"});
             this.cbAimMode.Location = new System.Drawing.Point(66, 34);
             this.cbAimMode.Name = "cbAimMode";
             this.cbAimMode.Size = new System.Drawing.Size(105, 21);
@@ -205,7 +211,7 @@ namespace RoastBot
             this.cbAnaMode.Items.AddRange(new object[] {
             "Always on",
             "Toggle",
-            "Hold"});
+            "HoldDown"});
             this.cbAnaMode.Location = new System.Drawing.Point(66, 34);
             this.cbAnaMode.Name = "cbAnaMode";
             this.cbAnaMode.Size = new System.Drawing.Size(105, 21);
@@ -253,13 +259,72 @@ namespace RoastBot
             // 
             // gbDrawing
             // 
-            this.gbDrawing.Enabled = false;
+            this.gbDrawing.Controls.Add(this.cbDrawWidow);
+            this.gbDrawing.Controls.Add(this.cbDrawTrigger);
+            this.gbDrawing.Controls.Add(this.cbDrawAna);
+            this.gbDrawing.Controls.Add(this.cbDrawAim);
+            this.gbDrawing.Controls.Add(this.cbDrawOver);
             this.gbDrawing.Location = new System.Drawing.Point(6, 56);
             this.gbDrawing.Name = "gbDrawing";
             this.gbDrawing.Size = new System.Drawing.Size(278, 164);
             this.gbDrawing.TabIndex = 14;
             this.gbDrawing.TabStop = false;
-            this.gbDrawing.Text = "Drawing coming soon!";
+            this.gbDrawing.Text = "Overlay WIP";
+            // 
+            // cbDrawWidow
+            // 
+            this.cbDrawWidow.AutoSize = true;
+            this.cbDrawWidow.Location = new System.Drawing.Point(16, 111);
+            this.cbDrawWidow.Name = "cbDrawWidow";
+            this.cbDrawWidow.Size = new System.Drawing.Size(102, 17);
+            this.cbDrawWidow.TabIndex = 4;
+            this.cbDrawWidow.Text = "Draw Widowbot";
+            this.cbDrawWidow.UseVisualStyleBackColor = true;
+            this.cbDrawWidow.CheckedChanged += new System.EventHandler(this.cbDrawWidow_CheckedChanged);
+            // 
+            // cbDrawTrigger
+            // 
+            this.cbDrawTrigger.AutoSize = true;
+            this.cbDrawTrigger.Location = new System.Drawing.Point(16, 88);
+            this.cbDrawTrigger.Name = "cbDrawTrigger";
+            this.cbDrawTrigger.Size = new System.Drawing.Size(102, 17);
+            this.cbDrawTrigger.TabIndex = 3;
+            this.cbDrawTrigger.Text = "Draw Triggerbot";
+            this.cbDrawTrigger.UseVisualStyleBackColor = true;
+            this.cbDrawTrigger.CheckedChanged += new System.EventHandler(this.cbDrawTrigger_CheckedChanged);
+            // 
+            // cbDrawAna
+            // 
+            this.cbDrawAna.AutoSize = true;
+            this.cbDrawAna.Location = new System.Drawing.Point(16, 65);
+            this.cbDrawAna.Name = "cbDrawAna";
+            this.cbDrawAna.Size = new System.Drawing.Size(88, 17);
+            this.cbDrawAna.TabIndex = 2;
+            this.cbDrawAna.Text = "Draw Anabot";
+            this.cbDrawAna.UseVisualStyleBackColor = true;
+            this.cbDrawAna.CheckedChanged += new System.EventHandler(this.cbDrawAna_CheckedChanged);
+            // 
+            // cbDrawAim
+            // 
+            this.cbDrawAim.AutoSize = true;
+            this.cbDrawAim.Location = new System.Drawing.Point(16, 42);
+            this.cbDrawAim.Name = "cbDrawAim";
+            this.cbDrawAim.Size = new System.Drawing.Size(86, 17);
+            this.cbDrawAim.TabIndex = 1;
+            this.cbDrawAim.Text = "Draw Aimbot";
+            this.cbDrawAim.UseVisualStyleBackColor = true;
+            this.cbDrawAim.CheckedChanged += new System.EventHandler(this.cbDrawAim_CheckedChanged);
+            // 
+            // cbDrawOver
+            // 
+            this.cbDrawOver.AutoSize = true;
+            this.cbDrawOver.Location = new System.Drawing.Point(6, 19);
+            this.cbDrawOver.Name = "cbDrawOver";
+            this.cbDrawOver.Size = new System.Drawing.Size(90, 17);
+            this.cbDrawOver.TabIndex = 0;
+            this.cbDrawOver.Text = "Draw Overlay";
+            this.cbDrawOver.UseVisualStyleBackColor = true;
+            this.cbDrawOver.CheckedChanged += new System.EventHandler(this.cbDrawOver_CheckedChanged);
             // 
             // cbMonitor
             // 
@@ -404,7 +469,7 @@ namespace RoastBot
             this.cbTriggerMode.Items.AddRange(new object[] {
             "Always on",
             "Toggle",
-            "Hold"});
+            "HoldDown"});
             this.cbTriggerMode.Location = new System.Drawing.Point(66, 34);
             this.cbTriggerMode.Name = "cbTriggerMode";
             this.cbTriggerMode.Size = new System.Drawing.Size(105, 21);
@@ -483,7 +548,7 @@ namespace RoastBot
             this.cbWidowMode.Items.AddRange(new object[] {
             "Always on",
             "Toggle",
-            "Hold"});
+            "HoldDown"});
             this.cbWidowMode.Location = new System.Drawing.Point(66, 34);
             this.cbWidowMode.Name = "cbWidowMode";
             this.cbWidowMode.Size = new System.Drawing.Size(105, 21);
@@ -545,7 +610,7 @@ namespace RoastBot
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(64, 17);
-            this.toolStripStatusLabel1.Text = "Version 0.1";
+            this.toolStripStatusLabel1.Text = "Version 0.2";
             // 
             // frmMain
             // 
@@ -568,6 +633,8 @@ namespace RoastBot
             this.tbMain.ResumeLayout(false);
             this.tgGeneral.ResumeLayout(false);
             this.tgGeneral.PerformLayout();
+            this.gbDrawing.ResumeLayout(false);
+            this.gbDrawing.PerformLayout();
             this.tpAim.ResumeLayout(false);
             this.tpAim.PerformLayout();
             this.tpAna.ResumeLayout(false);
@@ -624,6 +691,11 @@ namespace RoastBot
         private System.Windows.Forms.NumericUpDown nudWidowKey;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private CheckBox cbDrawOver;
+        private CheckBox cbDrawWidow;
+        private CheckBox cbDrawTrigger;
+        private CheckBox cbDrawAna;
+        private CheckBox cbDrawAim;
     }
 }
 

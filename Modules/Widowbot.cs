@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Text;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -26,7 +25,7 @@ namespace RoastBot.Modules
             // Initialize Fovs.
             Fovs = new List<Fov>
             {
-                new Fov { Resolution = new Point(1920, 1200), FieldOfView = new Rectangle(880, 510, 160, 50), RangeValues = new Point(0, 28), Tolerance = new Point(2, 2) },
+                new Fov { Resolution = new Point(1920, 1080), FieldOfView = new Rectangle(880, 510, 160, 50), RangeValues = new Point(0, 28), Tolerance = new Point(2, 2) },
                 new Fov { Resolution = new Point(1280, 720), FieldOfView = new Rectangle(580, 335, 120, 40), RangeValues = new Point(0, 18), Tolerance = new Point(2, 2) }
             };
 
@@ -50,7 +49,7 @@ namespace RoastBot.Modules
             // Run the main routine.
             while (true)
             {
-                if (MouseHelper.GetAsyncKeyState(SettingsManager.Widowbot.AimKey) < 0)
+                if (MouseHelper.GetAsyncKeyState(SettingsManager.Widowbot.AimKey) == -32767)
                 {
                     if (lastKeyState == false)
                     {
@@ -86,7 +85,7 @@ namespace RoastBot.Modules
                 screenCapture.Dispose();
                 screenCapture = null;
 
-                Thread.Sleep(1);
+                Thread.Sleep(10);
             }
         }
 
@@ -97,7 +96,7 @@ namespace RoastBot.Modules
 
             switch (SettingsManager.Widowbot.AimMode)
             {
-                case AimMode.Hold:
+                case AimMode.HoldDown:
                     if (MouseHelper.GetAsyncKeyState(SettingsManager.Widowbot.AimKey) >= 0)
                         return false;
                     break;

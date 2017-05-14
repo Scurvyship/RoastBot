@@ -53,7 +53,7 @@ namespace RoastBot.Modules
 
             while (true)
             {
-                if (MouseHelper.GetAsyncKeyState(SettingsManager.Triggerbot.AimKey) < 0)
+                if (MouseHelper.GetAsyncKeyState(SettingsManager.Triggerbot.AimKey) == -32767)
                 {
                     if (lastKeyState == false)
                     {
@@ -90,7 +90,7 @@ namespace RoastBot.Modules
                     screenCapture = null;
                 }
 
-                Thread.Sleep(1);
+                Thread.Sleep(10);
             }
         }
 
@@ -101,7 +101,7 @@ namespace RoastBot.Modules
 
             switch (SettingsManager.Triggerbot.AimMode)
             {
-                case AimMode.Hold:
+                case AimMode.HoldDown:
                     if (MouseHelper.GetAsyncKeyState(SettingsManager.Triggerbot.AimKey) >= 0)
                         return false;
                     break;
